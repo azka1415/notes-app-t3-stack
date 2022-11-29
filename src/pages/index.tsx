@@ -83,8 +83,8 @@ const Home: NextPage = () => {
                   (<p>Updated: {new Date(item.updatedAt).toLocaleString()}</p>)
                 }
                 {item.checked === false ?
-                  (<button onClick={() => handleChecked(item.id, true)} className='bg-green-600 text-white rounded-lg p-2'>Check</button>) :
-                  (<button onClick={() => handleChecked(item.id, false)} className='bg-green-600 text-white rounded-lg p-2'>Uncheck</button>)}
+                  (<button onClick={() => handleChecked(item.id, true)} className='bg-green-600 text-white rounded-lg p-2 transition-all hover:bg-green-700'>Check</button>) :
+                  (<button onClick={() => handleChecked(item.id, false)} className='bg-green-600 text-white rounded-lg p-2 transition-all hover:bg-green-700'>Uncheck</button>)}
                 <button
                   onClick={() => handleDelete(item.id)} className='bg-red-600 p-2 rounded-lg text-white transition-all hover:bg-red-700'>Delete</button>
               </li>
