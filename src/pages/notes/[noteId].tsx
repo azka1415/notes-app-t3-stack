@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { GetStaticPropsContext, GetStaticPaths } from 'next';
 import type { InferGetStaticPropsType } from 'next';
 import { prisma } from '../../server/trpc/context';
@@ -7,6 +7,7 @@ import superjson from 'superjson';
 import { trpc } from '../../utils/trpc';
 import { createProxySSGHelpers } from '@trpc/react-query/ssg';
 import Link from 'next/link';
+import EditModal from '../../components/EditModal';
 
 
 export async function getStaticProps(
@@ -47,27 +48,38 @@ export const getStaticPaths: GetStaticPaths = async () => {
 };
 
 export default function Note(props: InferGetStaticPropsType<typeof getStaticProps>) {
-
+    const [open, setOpen] = useState(false)
     const { id } = props
     const postQuery = trpc.shoppingList.getSpecificItem.useQuery({ text: id });
-    if (postQuery.status !== 'success' && !postQuery.data) {
+    if (postQuery.status !== 'success') {
         // won't happen since we're using `fallback: "blocking"`
         return <>Loading...</>;
     }
     const { data } = postQuery;
     if (!data) return <p>Loading...</p>
+
     return (
-        <div className='flex w-auto m-2 p-2'>
-            <div className='card p-2 text-xl flex flex-col space-y-2 items-start justify-center'>
-                <p>Note: {data.name}</p>
+        <div className='flex w-auto m-2 p-auto'>
+            {open && <EditModal open={setOpen} />}
+            <div className='p-2 text-xl flex flex-col space-y-2'>
+                <div className='flex space-x-2'>
+                    <p>
+                        Note: {data.name}
+                    </p>
+                    {data.checked ? (
+                        <input type="checkbox" checked={true} readOnly={true} />
+                    ) : null}
+                </div>
                 <p>Created: {new Date(data.createdAt).toLocaleString()}</p>
                 <p>Last Updated: {new Date(data.updatedAt).toLocaleString()}</p>
-                {data.checked ? (
-                    <input type="checkbox" checked={true} />
-                ) : null}
-                <Link href={'/'}>
-                    <button className='p-2 my-2 bg-gray-600 text-white rounded-lg'>Back</button>
-                </Link>
+                <div className='flex py-2 space-x-4'>
+
+                    <Link href={'/'}>
+                        <button className='p-2 bg-gray-600 text-white rounded-lg transition hover:bg-gray-700'>Back</button>
+                    </Link>
+                    <button className='p-2 bg-blue-600 rounded-lg text-white transition hover:bg-blue-700'
+                        onClick={() => setOpen(true)}>Edit</button>
+                </div>
             </div>
         </div>
     )
