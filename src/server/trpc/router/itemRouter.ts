@@ -47,4 +47,13 @@ export const itemRouter = router({
       });
       return item;
     }),
+  editItem: publicProcedure
+    .input(z.object({ text: z.string(), newName: z.string() }))
+    .mutation(async ({ ctx, input }) => {
+      const item = await ctx.prisma.shoppingItem.update({
+        where: { id: input.text },
+        data: { name: input.newName },
+      });
+      return item;
+    }),
 });

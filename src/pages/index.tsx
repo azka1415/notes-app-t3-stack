@@ -71,9 +71,9 @@ const Home: NextPage = () => {
               const two = new Date(a.updatedAt).getTime()
               return one - two
             }).map(item => (
-              <li key={item.id} className='flex space-x-4 jutify-start items-center text-center'>
+              <li key={item.id} className='flex space-x-4 justify-evenly items-center text-center border p-1 border-black rounded-lg'>
                 <Link href={`/notes/${item.id}`}>
-                  <p className="cursor-pointer">{item.name}</p>
+                  <p className="cursor-pointer text-xl transition hover:underline">{item.name}</p>
                 </Link>
                 {item.checked === true ? (
                   <input type="checkbox" checked={true} className='p-1 rounded-lg bg-green-600' />

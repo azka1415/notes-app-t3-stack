@@ -60,10 +60,10 @@ export default function Note(props: InferGetStaticPropsType<typeof getStaticProp
 
     return (
         <div className='flex w-auto m-2 p-auto'>
-            {open && <EditModal open={setOpen} />}
+            {open && <EditModal open={setOpen} noteId={data.id} />}
             <div className='p-2 text-xl flex flex-col space-y-2'>
                 <div className='flex space-x-2'>
-                    <p>
+                    <p className=''>
                         Note: {data.name}
                     </p>
                     {data.checked ? (
