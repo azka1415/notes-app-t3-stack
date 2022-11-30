@@ -73,7 +73,7 @@ const Home: NextPage = () => {
             return one - two
           }).map(item => (
             <div key={item.id} className='flex lg:flex lg:flex-col space-x-4 justify-between items-center text-center border p-1 border-black rounded-lg'>
-              <div className="flex flex-row lg:flex lg:flex-col space-x-2 justify-start items-center">
+              <div className="flex flex-row lg:flex lg:flex-col space-x-2 justify-start items-center lg:space-x-0 lg:space-y-1">
 
                 <Link href={`/notes/${item.id}`}>
                   <p className="cursor-pointer text-xl transition hover:underline">{item.name}</p>
