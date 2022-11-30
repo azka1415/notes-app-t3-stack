@@ -2,7 +2,6 @@ import type { Dispatch, SetStateAction } from 'react';
 import { useState } from 'react';
 import React from 'react'
 import { trpc } from '../utils/trpc';
-import { NextResponse } from 'next/server';
 import { useRouter } from 'next/router';
 
 interface EditModalProps {
