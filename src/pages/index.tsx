@@ -13,8 +13,8 @@ const Home: NextPage = () => {
   const [checkItems, setCheckItems] = useState<ShoppingItem[]>([])
   const itemDelete = trpc.shoppingList.deleteItem.useMutation()
   const updateCheck = trpc.shoppingList.checkItem.useMutation()
-
   const result = trpc.shoppingList.getItems.useQuery()
+
   useEffect(() => {
     if (result.data) {
       setItems(result.data)
@@ -44,6 +44,7 @@ const Home: NextPage = () => {
       },
     })
   }
+
   if (!result.data || result.isLoading) return <p>Loading...</p>
 
 
@@ -91,8 +92,10 @@ const Home: NextPage = () => {
                 {item.checked === false ?
                   (<button onClick={() => handleChecked(item.id, true)} className='bg-green-600 text-white rounded-lg p-2 transition-all hover:bg-green-700'>Check</button>) :
                   (<button onClick={() => handleChecked(item.id, false)} className='bg-green-600 text-white rounded-lg p-2 transition-all hover:bg-green-700'>Uncheck</button>)}
+
                 <button
-                  onClick={() => handleDelete(item.id)} className='bg-red-600 p-2 rounded-lg text-white transition-all hover:bg-red-700'>Delete</button>
+                  onClick={() => handleDelete(item.id)}
+                  className='bg-red-600 p-2 rounded-lg text-white transition-all hover:bg-red-700'>Delete</button>
               </div>
             </div>
 
